@@ -1,1 +1,7 @@
 build-tmp/
+*.class
+.classpath
+.project
+.settings
+
+

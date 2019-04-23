@@ -1,9 +1,9 @@
 package br.unifor.si.rosos;
-class Sensor{
+public class Sensor{
 	protected GameSimulator game;
 	protected Robot robot;
 
-	Sensor(GameSimulator g, Robot r){
+	public Sensor(GameSimulator g, Robot r){
 		game = g;
 		robot = r;
 	}

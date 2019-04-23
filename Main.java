@@ -1,7 +1,12 @@
-import processing.core.PVector;
-import br.unifor.si.rosos.*;
+import br.unifor.si.rosos.Ball;
+import br.unifor.si.rosos.GameController;
+import br.unifor.si.rosos.Match;
+import br.unifor.si.rosos.Robot;
+import br.unifor.si.rosos.Simulatable;
+import br.unifor.si.rosos.fuzhoda.FuzRoDaTeam;
 import br.unifor.si.rosos.testeTeam.TesteTeam;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Main extends PApplet{
 
@@ -18,7 +23,7 @@ public class Main extends PApplet{
                 // Team A Class
                 TesteTeam.class,
                 // Team B Class
-                CustomEmptyTeam.class,
+                FuzRoDaTeam.class,
                 //CustomEmptyTeam.class,
                 // Number of robots on each side
                 1
