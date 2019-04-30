@@ -1,10 +1,10 @@
 import br.unifor.si.rosos.Ball;
+import br.unifor.si.rosos.CustomTeamB;
 import br.unifor.si.rosos.GameController;
 import br.unifor.si.rosos.Match;
 import br.unifor.si.rosos.Robot;
 import br.unifor.si.rosos.Simulatable;
 import br.unifor.si.rosos.fuzhoda.FuzRoDaTeam;
-import br.unifor.si.rosos.testeTeam.TesteTeam;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -12,7 +12,7 @@ public class Main extends PApplet{
 
     GameController controller;
 
-    float SCALE = 300f;
+    float SCALE = 200f;
 
     public static void main(String[] args) {
         PApplet.main("Main");
@@ -21,7 +21,7 @@ public class Main extends PApplet{
     public void settings(){
         controller = new GameController(new Match(
                 // Team A Class
-                TesteTeam.class,
+                CustomTeamB.class,
                 // Team B Class
                 FuzRoDaTeam.class,
                 //CustomEmptyTeam.class,

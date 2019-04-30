@@ -9,7 +9,7 @@ public class Ball extends Simulatable implements ShapeCircle, Drawable{
 		return 0.300f;
 	}
 	public float getRadius(){
-		return 0.05f;
+		return 0.03f;
 	}
 
 	public float getKFactor(){

@@ -6,20 +6,22 @@ import br.unifor.si.rosos.Team;
 import br.unifor.si.rosos.TeamSide;
 
 public class FuzRoDaTeam implements Team{
+	private TeamSide teamSide;
 
 	@Override
 	public String getTeamName() {
 		return "Fuz Ro Da";
-	}
-
+	}	
+	
 	@Override
-	public void setTeamSide(TeamSide side) {
-		
+	public void setTeamSide(TeamSide side){
+		teamSide = side;
 	}
 
 	@Override
 	public Robot buildRobot(GameSimulator simulator, int index) {
-		return new RobotBoy(simulator);
+		RobotConfig robotconfig = new RobotConfig(this.teamSide);
+		return new RobotBoy(simulator, robotconfig);
 	}
 
 }

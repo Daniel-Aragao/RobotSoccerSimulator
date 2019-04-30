@@ -1,7 +1,7 @@
 package br.unifor.si.rosos;
 import processing.core.*;
 
-class MathUtil {
+public class MathUtil {
 	/**
 	 * Put angle in degrees into [0, 360) range
 	 */
