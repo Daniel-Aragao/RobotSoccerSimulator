@@ -10,7 +10,7 @@ public class RobotConfig {
 	public RobotConfig(TeamSide teamSide) {
 		this.teamSide = teamSide;
 		
-		String fileName = "daniel_arthur_fuzzy.fcl";
+		String fileName = "daniel_arthur_fuzzy_attack.fcl";
 		
 		fis = FIS.load(fileName);
 		

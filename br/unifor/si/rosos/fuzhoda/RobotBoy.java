@@ -56,6 +56,7 @@ public class RobotBoy extends RobotBasic {
 		
 		readGoal(fis);
 		readBall(fis);
+		ultraSonic(fis);
 		
 //		float goalAngle = goal.readValue(0);
 //		float goalDist = goal.readValue(1);
@@ -90,15 +91,19 @@ public class RobotBoy extends RobotBasic {
 		float sonicBack = back.readValue(0);
 		float sonicLeft = left.readValue(0);
 		
-		fis.setVariable("sonicFront", Math.abs(sonicFront));
+//		fis.setVariable("sonicFront", Math.abs(sonicFront));
 		fis.setVariable("sonicRight", Math.abs(sonicRight));
-		fis.setVariable("sonicBack", Math.abs(sonicBack));
+//		fis.setVariable("sonicBack", Math.abs(sonicBack));
 		fis.setVariable("sonicLeft", Math.abs(sonicLeft));
+		
+		System.out.print("Sonic: ");
+		System.out.print(sonicLeft + " | ");
+		System.out.print(sonicRight + " | ");
 	}
 	
 	public void readGoal(FIS fis) {
 		float goalAngle = goal.readValue(0) * -1;
-		float goalDist = locator.readValue(1);
+		float goalDist = goal.readValue(1);
 
 //		float rads = (float)Math.toRadians(ballAngle);
 //		float ballX = (float)Math.sin(rads);
@@ -107,7 +112,7 @@ public class RobotBoy extends RobotBasic {
 		if(goalAngle < 0) {
 			goalAngle = 360 + goalAngle;
 		}
-
+		System.out.print("Goal: ");
 		System.out.print(goalDist + " | ");
 		System.out.print(goalAngle + " | ");
 		
@@ -132,8 +137,9 @@ public class RobotBoy extends RobotBasic {
 			ballAngle = 360 + ballAngle;
 		}
 
-		System.out.print(ballAngle + " | ");
+		System.out.print("Ball: ");
 		System.out.print(ballDist + " | ");
+		System.out.print(ballAngle + " | ");
 		
 		fis.setVariable("ballAngle", ballAngle);
 		fis.setVariable("ballDist", Math.abs(ballDist));
