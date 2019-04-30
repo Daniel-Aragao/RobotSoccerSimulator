@@ -21,7 +21,8 @@ public class Main extends PApplet{
     public void settings(){
         controller = new GameController(new Match(
                 // Team A Class
-                CustomTeamB.class,
+//                CustomEmptyTeam.class,
+        		CustomTeamB.class,
                 // Team B Class
                 FuzRoDaTeam.class,
                 //CustomEmptyTeam.class,

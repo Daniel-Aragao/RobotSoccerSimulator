@@ -1,10 +1,12 @@
 package br.unifor.si.rosos.fuzhoda;
 
+import br.unifor.si.rosos.Ball;
 import br.unifor.si.rosos.GameSimulator;
-import br.unifor.si.rosos.MathUtil;
 import br.unifor.si.rosos.RobotBasic;
 import br.unifor.si.rosos.Sensor;
 import br.unifor.si.rosos.TeamSide;
+import net.sourceforge.jFuzzyLogic.FIS;
+import net.sourceforge.jFuzzyLogic.FunctionBlock;
 
 public class RobotBoy extends RobotBasic {
 	private float velocidade;
@@ -13,21 +15,23 @@ public class RobotBoy extends RobotBasic {
 	private Sensor locator;
 	private Sensor compass;
 	private Sensor front, right, back, left;
+	private Sensor goal;
+	
 	private float goalDir;
+	
+	private Ball ball;
 
-	public RobotBoy(GameSimulator g, RobotConfig robotConfig) {
+	public RobotBoy(GameSimulator g, RobotConfig robotConfig) { 
 		super(g);
+		ball = g.ball;
 		this.robotConfig = robotConfig;
+		
+		SensorGoal goal = new SensorGoal(g, this, this.robotConfig.getTeamSide());
+		registerSensor(goal, "GOAL");
 	}
 	
 	public void setup(){
 		velocidade = 1f;
-		/*
-			You should use this method to initialize your code,
-			setup Sensors and variables.
-
-			It will be runned once.
-		*/
 		
 		System.out.println("Running!");
 
@@ -38,6 +42,8 @@ public class RobotBoy extends RobotBasic {
 		left = getSensor("ULTRASONIC_LEFT");
 		back = getSensor("ULTRASONIC_BACK");
 		right = getSensor("ULTRASONIC_RIGHT");
+		
+		goal = getSensor("GOAL");
 
 		goalDir = 0f;
 		// Find Goal Direction
@@ -46,34 +52,104 @@ public class RobotBoy extends RobotBasic {
 	}
 
 	public void loop(){
-		float ballAngle = locator.readValue(0);
-		float ballDist = locator.readValue(1);
+		FIS fis = this.robotConfig.getFis();
 		
+		readGoal(fis);
+		readBall(fis);
 		
-		lookToTheBall();
+//		float goalAngle = goal.readValue(0);
+//		float goalDist = goal.readValue(1);
+//		
+//		float sonicFront = front.readValue(0);
+//		float sonicRight = right.readValue(0);
+//		float sonicBack = back.readValue(0);
+//		float sonicLeft = left.readValue(0);
+//		
+//		System.out.print(this.getRealPosition().x + " ");
+//		System.out.print(this.getRealPosition().y + " ");
+//		System.out.print(locator.readValue(1) + " ");
+//		System.out.println(this.getOrientation());
 		
-		System.out.print(this.getRealPosition().x + " ");
-		System.out.print(this.getRealPosition().y + " ");
-		System.out.println(this.getOrientation());
+		fis.evaluate();
 		
-		caminhar(velocidade);
+		FunctionBlock functionBlock = fis.getFunctionBlock("fuzhoda");
+		
+		float vX = (float) functionBlock.getVariable("vX").getValue();
+		float vY = (float) functionBlock.getVariable("vY").getValue();
+//		lookToTheBall();
+		
+		System.out.print(vX + " | ");
+		System.out.println(vY);
+		
+		setSpeed(vX , vY);
 	}
 	
-	private void lookToTheBall() {
-		float comp = compass.readValue(0);
+	public void ultraSonic(FIS fis) {
+		float sonicFront = front.readValue(0);
+		float sonicRight = right.readValue(0);
+		float sonicBack = back.readValue(0);
+		float sonicLeft = left.readValue(0);
+		
+		fis.setVariable("sonicFront", Math.abs(sonicFront));
+		fis.setVariable("sonicRight", Math.abs(sonicRight));
+		fis.setVariable("sonicBack", Math.abs(sonicBack));
+		fis.setVariable("sonicLeft", Math.abs(sonicLeft));
+	}
+	
+	public void readGoal(FIS fis) {
+		float goalAngle = goal.readValue(0) * -1;
+		float goalDist = locator.readValue(1);
 
-		setRotation(MathUtil.relativeAngle(goalDir - comp) * 1f);
+//		float rads = (float)Math.toRadians(ballAngle);
+//		float ballX = (float)Math.sin(rads);
+//		float ballY = (float)Math.cos(rads);
+		
+		if(goalAngle < 0) {
+			goalAngle = 360 + goalAngle;
+		}
+
+		System.out.print(goalDist + " | ");
+		System.out.print(goalAngle + " | ");
+		
+		fis.setVariable("goalAngle", goalAngle);
+		fis.setVariable("goalDist", Math.abs(goalDist));
+//		fis.setVariable("goalX", ballX);
+//		fis.setVariable("goalY", ballY);
 	}
 	
-	void caminhar(float distancia) {
-		setSpeed(distancia);
-		delay(1000);
-		stopMotors();
-		//setRotation(-360);
-		//delay(1000);
-		//stopMotors();
-		/*setSpeed(-distancia);
-		delay(1000);
-		stopMotors();*/
+	public void readBall(FIS fis) {
+		float ballAngle = locator.readValue(0) * -1;
+		float ballDist = locator.readValue(1);
+
+//		float rads = (float)Math.toRadians(ballAngle);
+//		float ballX = (float)Math.sin(rads);
+//		float ballY = (float)Math.cos(rads);
+		float ballX = this.getPosition().x - this.ball.getPosition().x;
+		float ballY = this.getPosition().y - this.ball.getPosition().y;
+		
+		
+		if(ballAngle < 0) {
+			ballAngle = 360 + ballAngle;
+		}
+
+		System.out.print(ballAngle + " | ");
+		System.out.print(ballDist + " | ");
+		
+		fis.setVariable("ballAngle", ballAngle);
+		fis.setVariable("ballDist", Math.abs(ballDist));
+		fis.setVariable("ballX", ballX);
+		fis.setVariable("ballY", ballY);
 	}
+	
+//	private void lookToTheBall() {
+//		float comp = compass.readValue(0);
+//
+//		float ballAngle = locator.readValue(0);
+//		float ballDist = locator.readValue(1);
+//		
+//		System.out.println("Angle:" + ballAngle);
+//		System.out.println("Dists:" + ballDist);
+//		
+//		setRotation(ballAngle * 10);
+//	}
 }

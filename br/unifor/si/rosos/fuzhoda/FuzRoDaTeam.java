@@ -21,6 +21,7 @@ public class FuzRoDaTeam implements Team{
 	@Override
 	public Robot buildRobot(GameSimulator simulator, int index) {
 		RobotConfig robotconfig = new RobotConfig(this.teamSide);
+		
 		return new RobotBoy(simulator, robotconfig);
 	}
 
