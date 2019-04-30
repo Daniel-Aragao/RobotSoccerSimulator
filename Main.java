@@ -27,7 +27,7 @@ public class Main extends PApplet{
                 FuzRoDaTeam.class,
                 //CustomEmptyTeam.class,
                 // Number of robots on each side
-                2
+                1
 
         ));
 

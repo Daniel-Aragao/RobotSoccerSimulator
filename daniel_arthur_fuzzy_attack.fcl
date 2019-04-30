@@ -102,10 +102,10 @@ RULEBLOCK velBollPos
 	
 //	RULE 7 : IF ballX IS close AND ballY IS close AND ballAngle IS behind AND ballAngle IS left THEN vY IS slowN;
 //	RULE 8 : IF ballX IS close AND ballY IS close AND ballAngle IS behind AND ballAngle IS right THEN vY IS slowP;
-	RULE 7 : IF ballX IS close AND ballY IS close AND ballAngle IS behind AND ballAngle IS left THEN vY IS slow;
-	RULE 8 : IF ballX IS close AND ballY IS close AND ballAngle IS behind AND ballAngle IS right THEN vY IS slow;
-	RULE 9 : IF ballX IS close AND ballY IS close AND NOT ballAngle IS behind AND ballAngle IS left THEN vY IS no;
-	RULE 10: IF ballX IS close AND ballY IS close AND NOT ballAngle IS behind AND ballAngle IS right THEN vY IS no;
+	RULE 7 : IF ballX IS close AND ballY IS close AND ballAngle IS behind AND ballAngle IS left THEN vY IS fastP;
+	RULE 8 : IF ballX IS close AND ballY IS close AND ballAngle IS behind AND ballAngle IS right THEN vY IS fastN;
+//	RULE 9 : IF ballX IS close AND ballY IS close AND NOT ballAngle IS behind AND ballAngle IS left THEN vY IS fastP;
+//	RULE 10: IF ballX IS close AND ballY IS close AND NOT ballAngle IS behind AND ballAngle IS right THEN vY IS fastN;
 	
 END_RULEBLOCK
 
