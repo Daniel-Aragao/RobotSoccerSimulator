@@ -92,7 +92,7 @@ RULEBLOCK velBollPos
 	ACT : MIN;	// Use 'min' activation method
 	ACCU : MAX;	// Use 'max' accumulation method
 	
-	RULE 1 : IF ballAngle IS front THEN vX IS fastP;
+	RULE 1 : IF ballAngle IS front AND ballDist IS close THEN vX IS fastP;
 	RULE 2 : IF ballAngle IS behind THEN vX IS fastN;
 	RULE 3 : IF ballAngle IS left THEN vY IS fastN;
 	RULE 4 : IF ballAngle IS right  THEN vY IS fastP;
@@ -116,15 +116,6 @@ RULEBLOCK GoalPos
 	
 	RULE 1 : IF goalAngle IS right AND goalAngle IS front AND goalDist IS close THEN vY IS fastN;
 	RULE 2 : IF goalAngle IS left AND goalAngle IS front AND goalDist IS close THEN vY IS fastP;
-END_RULEBLOCK
-
-RULEBLOCK UltraSonic
-	AND : MIN;	// Use 'min' for 'and'
-	ACT : MIN;	// Use 'min' activation method
-	ACCU : MAX;	// Use 'max' accumulation method
-	
-	RULE 1 : IF sonicRight IS close THEN vY IS no;
-	RULE 2 : IF sonicLeft IS close THEN vY IS no;
 END_RULEBLOCK
 
 END_FUNCTION_BLOCK

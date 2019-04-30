@@ -20,9 +20,18 @@ public class FuzRoDaTeam implements Team{
 
 	@Override
 	public Robot buildRobot(GameSimulator simulator, int index) {
-		RobotConfig robotconfig = new RobotConfig(this.teamSide);
+		RobotConfig robotconfig = new RobotConfig(this.teamSide, false);
 		
-		return new RobotBoy(simulator, robotconfig);
+		return new RobotBoyAttacker(simulator, robotconfig);
+//		if(index == 0) {
+//			RobotConfig robotconfig = new RobotConfig(this.teamSide, false);
+//			
+//			return new RobotBoyAttacker(simulator, robotconfig);			
+//		}else {
+//			RobotConfig robotconfig = new RobotConfig(this.teamSide, true);
+//			
+//			return new RobotBoyKeeper(simulator, robotconfig);
+//		}
 	}
 
 }

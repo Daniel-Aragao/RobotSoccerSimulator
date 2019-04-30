@@ -7,10 +7,15 @@ public class RobotConfig {
 	private TeamSide teamSide;
 	private FIS fis;
 	
-	public RobotConfig(TeamSide teamSide) {
+	public RobotConfig(TeamSide teamSide, boolean keeper) {
 		this.teamSide = teamSide;
+		String fileName = null;
 		
-		String fileName = "daniel_arthur_fuzzy_attack.fcl";
+		if(!keeper) {
+			fileName = "daniel_arthur_fuzzy_attack.fcl";			
+		}else {
+			fileName = "daniel_arthur_fuzzy_defender.fcl";
+		}
 		
 		fis = FIS.load(fileName);
 		

@@ -8,7 +8,7 @@ import br.unifor.si.rosos.TeamSide;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 
-public class RobotBoy extends RobotBasic {
+public class RobotBoyAttacker extends RobotBasic {
 	private float velocidade;
 	private RobotConfig robotConfig;
 	
@@ -21,7 +21,7 @@ public class RobotBoy extends RobotBasic {
 	
 	private Ball ball;
 
-	public RobotBoy(GameSimulator g, RobotConfig robotConfig) { 
+	public RobotBoyAttacker(GameSimulator g, RobotConfig robotConfig) { 
 		super(g);
 		ball = g.ball;
 		this.robotConfig = robotConfig;
